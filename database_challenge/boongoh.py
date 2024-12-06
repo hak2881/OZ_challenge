@@ -3,7 +3,7 @@ db = pymysql.connect(  ##접속 edit 하면 나오는것 입력
 host='localhost', # 127.0.0.1 , 0.0.0.0 
 port=3306, 
 user='root', # root 이
-passwd='##Dlwps753', #비밀번호 입력 
+passwd='0000', #비밀번호 입력 
 db='db_test', #연결할 database 명 워크밴치에 있어야댐!!
 charset='utf8')
 
