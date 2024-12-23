@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>우디의 프로필</title>
+    </head>
+    <body>
+        <h1 title="우디의 프로필 페이지">우 디</h1>
+        <hr>
+        <img 
+        src="imges/우디.jpeg"
+        width="300"
+        >
+        <div id="introduce">
+            <p>안녕하세요. 수컷 강아지 <mark>우디</mark>라고 합니다. </p>
+            <p><strong>수원에서</strong> 태어났습니다</p>
+            <p>
+                산책을 좋아하고, 주인을 아주 종아합니다.<br>
+                저와 함께 즐거운 시간 보내봐요!
+            </p>
+        </div>
+        <hr>
+        <div id="fun_facts">
+            <h2>우디 이모저모</h2>
+            <p>
+                1. 호기심이 많아 뭐든 <strong>냄세</strong>를 맡습니다. <br>
+                2. <mark>겁이 많아서 먼저 다가오면 도망</mark>가요. <br>
+                3. 간식을 아주 좋아합니다. 돼집니다!!
+            </p>
+        </div>
+        <hr>
+        <span>&copy; 우디</span>
+    </body>
+</html>
+
