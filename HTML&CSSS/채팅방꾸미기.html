@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>채팅방 만들기</title>
+    <link href="chat.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <main class="chat-screen">
+            <section class="chat-screen__bar">
+                <div class="user">
+                    <div class="user__column">
+                        <div class="user__pic"></div>
+                    </div>
+                    <div class="user__column">
+                        <p class="user__nick">친구</p>
+                        <p class="user__count">2</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+        <form class="chat-form">
+            <section class="chat-form__field">
+                <textarea class="chat-form__msg"></textarea>
+                <input type="submit" value="전송" class="chat-form__bt">
+            </section>
+        </form>
+    </div>
+</body>
+</html>
+
+/* 전체적인 세팅부터 */
+*{
+    box-sizing: border-box;
+}
+html{
+    height: 100%; /*화면을 꽉채워 쓰겟다, 내가 속한 영역의 전체*/
+}
+body{
+    height: 100%;
+    margin: 0px;
+    /* html 요소는 기본 스타일이 있음 그래서 마진 제거 */
+}
+.container{
+    height: 100%;
+    background-color: gray;
+}
+
+/* 스크린 크기 조정 */
+.chat-screen{
+    height: calc(100% - 120px);/* css 수치끼리 계산해서 그 결과를 쓰고싶다. */
+}
+
+/* 유저 정보 표시되는 부분 */
+.user{
+    background-color: white;
+    padding: 16px;
+    height: 80px;
+}
+/* 박스 옆으로 글자 붙이기 위한 */
+.user__column{ /* 포지션 무시 */
+    float: left;
+}
+.user__pic{
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+    border-radius: 10px;
+    background-color: gray;
+}
+
+.user__nick, .user__count{
+    margin: 5px;
+}
+.user__count{
+    font-size: 12px;
+    color: black;
+}
+/* 채팅 입력 창 */
+.chat-form{
+    height: 120px;
+    background-color: white;
+}
+.chat-form__field{
+    height: 120px;
+}
+.chat-form__msg{
+    float: left;/* 전송 입력 부분과 떨어지는 것을 방지하기위해 포지션 무시를 위해 적용 */
+    width: calc(100%- 120px);
+    height: 120px;
+    border: none;
+    font-size: 24px;
+    padding: 10px;
+    resize: none; /* 드래그로 사이즈 바뀌는거 막아주는 기능 입력값에 대해 */
+    
+}
+
+.chat-form__bt{
+    width: 120px;
+    height: 120px;
+    border-radius: 10px;
+    background-color: gray;
+    font-size: 18px;
+}
+
+.chat-form__msg:focus{
+    outline: none; /* 아웃라인 제거 */
+}
+
+.chat-form__bt:active{/* 클릭이 되는것을 명시적으로 보이기 위해 */
+    background-color: wheat;
+}
