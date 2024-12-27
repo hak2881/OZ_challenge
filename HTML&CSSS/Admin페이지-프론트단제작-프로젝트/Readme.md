@@ -123,7 +123,7 @@
 ```
 * 회원 가입 버튼을 만들고 회원가입 버튼을 누르면 회원 가입 폼이 나오도록 기능을 만들어주세요
 ``` html
-<!-- body
+<!-- body -->
     <div class="mt-3">
       <button id="signupButton" class="btn btn-success">회원 가입</button>
     </div>
