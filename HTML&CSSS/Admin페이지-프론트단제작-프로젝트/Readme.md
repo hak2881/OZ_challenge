@@ -161,7 +161,7 @@
       form.style.display = form.style.display === 'none' ? 'block' : 'none';
     });
 </script>
-
+```
 
 # ✨ 회원가입 양식 구현
 
