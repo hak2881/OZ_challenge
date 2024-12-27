@@ -84,6 +84,16 @@
 ```
 * 다크모드 기능을 만들어주세요
 ```html
+<!-- head -->
+  <style>
+    body.dark-mode {
+      background-color: #121212;
+      color: #ffffff;
+    }
+    .dark-mode .table {
+      color: #ffffff;
+    }
+  </style>
 <!-- body -->
 <!-- 다크모드 스위치 -->
     <div class="form-check form-switch mb-3">
