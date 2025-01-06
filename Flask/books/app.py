@@ -1,47 +1,18 @@
-from flask.views import MethodView
-from flask_smorest import Blueprint, abort
-from schemas import BookSchema
+from flask import Flask
+from flask_smorest import Api
+from api import book_blp
 
-book_blp = Blueprint('books', 'books', url_prefix='/books', description='Operations on books')
+app = Flask(__name__)
 
-books = []
+app.config['API_TITLE'] = 'Book API'
+app.config['API_VERSION'] = 'v1'
+app.config['OPENAPI_VERSION'] = '3.0.2'
+app.config["OPENAPI_URL_PREFIX"] = "/"
+app.config["OPENAPI_SWAGGER_UI_PATH"] = "/swagger-ui"
+app.config["OPENAPI_SWAGGER_UI_URL"] = "https://cdn.jsdelivr.net/npm/swagger-ui-dist/"
 
-@book_blp.route('/')
-class BookList(MethodView):
-    @book_blp.response(200, BookSchema(many=True))
-    def get(self):
-        return books
+api = Api(app)
+api.register_blueprint(book_blp)
 
-    @book_blp.arguments(BookSchema)
-    @book_blp.response(201, BookSchema)
-    def post(self, new_data):
-        new_data['id'] = len(books) + 1
-        books.append(new_data)
-        return new_data
-
-@book_blp.route('/<int:book_id>')
-class Book(MethodView):
-    @book_blp.response(200, BookSchema)
-    def get(self, book_id):
-        book = next((book for book in books if book['id'] == book_id), None)
-        if book is None:
-            abort(404, message="Book not found.")
-        return book
-
-    @book_blp.arguments(BookSchema)
-    @book_blp.response(200, BookSchema)
-    def put(self, new_data, book_id):
-        book = next((book for book in books if book['id'] == book_id), None)
-        if book is None:
-            abort(404, message="Book not found.")
-        book.update(new_data)
-        return book
-
-    @book_blp.response(204)
-    def delete(self, book_id):
-        global books
-        book = next((book for book in books if book['id'] == book_id), None)
-        if book is None:
-            abort(404, message="Book not found.")
-        books = [book for book in books if book['id'] != book_id]
-        return ''
+if __name__ == '__main__':
+    app.run(debug=True)
