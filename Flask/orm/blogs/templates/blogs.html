@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Blog</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <h1>Blog </h1>
+
+    <h2>Create a New blog</h2>
+    <form id="blogForm">
+        Title: <input type="text" id="title" /><br />
+        Content:<br />
+        <textarea id="content"></textarea><br />
+        <input type="submit" value="Create blog" id="createButton" />
+        <input type="button" value="Update blog" id="updateButton" onclick="submitUpdateForm()" style="display: none" />
+    </form>
+
+    <hr />
+
+    <h2>All blogs</h2>
+    <ul id="blogsList"></ul>
+
+    <script>
+      let currentEditingId = null;
+
+      document.getElementById("blogForm").addEventListener("submit", function (e) {
+        e.preventDefault();
+        const title = document.getElementById("title").value;
+        const content = document.getElementById("content").value;
+        if (currentEditingId === null) {
+          createNewblog(title, content);
+        } else {
+          updateblog(currentEditingId, title, content);
+        }
+      });
+
+      function createNewblog(title, content) {
+        axios.blog("/blogs", { title, content })
+          .then(function (response) {
+            console.log(response);
+            loadblogs();
+            resetForm();
+          })
+          .catch(function (error) {
+            console.error(error);
+          });
+      }
+
+      function updateBlog(id, title, content) {
+        axios.put("/blogs/" + id, { title, content })
+          .then(function (response) {
+            console.log(response);
+            loadBlogs();
+            resetForm();
+          })
+          .catch(function (error) {
+            console.error(error);
+          });
+      }
+      function submitUpdateForm() {
+        const title = document.getElementById("title").value;
+        const content = document.getElementById("content").value;
+        if (currentEditingId) {
+            updateBlog(currentEditingId, title, content);  // 수정된 값 보내기
+        } else {
+            console.error("No blog is currently being edited.");
+        }
+    }
+
+
+      function loadBlogs() {
+        axios.get("/blogs")
+          .then(function (response) {
+            const blogs = response.data;
+            const blogsList = document.getElementById("blogsList");
+            blogsList.innerHTML = "";
+            blogs.forEach((blog) => {
+              const listItem = document.createElement("li");
+              listItem.innerHTML = `
+                <h3>ID: ${blog.id}</h3>
+                <h3>TITLE: ${blog.title}</h3>
+                <p>CONTENT: ${blog.content}</p>
+                <button onclick="deleteBlog(${blog.id})">Delete</button>
+                <button onclick="loadBlogForEditing(${blog.id})">Edit</button>
+              `;
+              blogsList.appendChild(listItem);
+            });
+          })
+          .catch(function (error) {
+            console.error(error);
+          });
+      }
+
+      function deleteBlog(id) {
+        if (confirm("Are you sure you want to delete this blog?")) {
+          axios.delete("/blogs/" + id)
+            .then(function (response) {
+              console.log(response);
+              loadBlogs();
+            })
+            .catch(function (error) {
+              console.error(error);
+            });
+        }
+      }
+
+      function loadBlogForEditing(id) {
+        axios.get("/blogs/" + id)
+          .then(function (response) {
+            const blog = response.data;
+            currentEditingId = blog.id;
+            document.getElementById("title").value = blog.title;
+            document.getElementById("content").value = blog.content;
+            document.getElementById("createButton").style.display = "none";
+            document.getElementById("updateButton").style.display = "inline";
+          })
+          .catch(function (error) {
+            console.error(error);
+          });
+      }
+
+      function resetForm() {
+        currentEditingId = null;
+        document.getElementById("title").value = "";
+        document.getElementById("content").value = "";
+        document.getElementById("createButton").style.display = "inline";
+        document.getElementById("updateButton").style.display = "none";
+      }
+
+      loadBlogs();
+    </script>
+</body>
+</html>
