@@ -5,7 +5,7 @@ from models import User, Board
 
 app = Flask(__name__)
 # sqlachemy 를 통해 database에 접속할 수 있는 명령어
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:##Dlwps753@localhost/oz'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:pwd@localhost/oz'
 # 객체가 바뀔때마다 trackking 하면 메모리에 너무 부하가 심해 왠만하면 false로 사용
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
