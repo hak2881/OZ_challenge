@@ -1,5 +1,5 @@
 # db 연동 
 mysql_host : 'localhost'
 mysql_user : 'root'
-mysql_password : '##Dlwps753'
+mysql_password : 'pwd'
 mysql_db : 'oz'
